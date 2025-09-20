@@ -1,0 +1,12 @@
+### GET org info (anonymous admin)
+GET {{GRAFANA_HOST}}/api/org
+
+### GET health (no auth needed)
+GET {{GRAFANA_HOST}}/api/health
+
+### GET org users (alternative to /api/users)
+GET {{GRAFANA_HOST}}/api/orgs/1/users
+
+### GET dashboards
+GET {{GRAFANA_HOST}}/api/search
+

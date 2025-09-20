@@ -1,37 +1,53 @@
 # Sample application for tutorials
 
-This repository contains the environment for completing the tutorials at [grafana.com/tutorials](https://grafana.com/tutorials).
+* goal
+  * environment /
+    * uses
+      * complete the [grafana tutorials](https://grafana.com/tutorials)
 
 ## Prequisites
 
-You will need to have the following installed locally to complete this workshop:
+* install
+  * [Docker](https://docs.docker.com/install/)
+  * [Docker Compose](https://docs.docker.com/compose/install/)
 
-- [Docker](https://docs.docker.com/install/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+## how to run?
 
-NOTE: If you're running Docker for Desktop for macOS or Windows, Docker Compose is already included in your installation.
+* | this path,
+  * `docker-compose up -d`
+* | browser,
+  * http://localhost:3000
+  * "admin" / "admin"
+    * Problems:
+      * Problem1: 401
+        * Attempt1
+        ```
+          $ docker exec -it --user root grafana-tutorial-environment-grafana-1 sh
+          $ apk add sqlite
+          $ cd /var/lib/grafana
+          $ sqlite3 grafana.db "SELECT id, login, email, name, is_admin FROM user;"
+          $ sqlite3 grafana.db "UPDATE user SET password = '59acf18b94d7eb0694c61e60ce44c110c7a683ac6a8f09580d626f90f0a9c285', salt = 'LhQoKvYd' WHERE login = 'admin';"
+          $ sqlite3 grafana.db "SELECT login, password FROM user WHERE login='admin';"  
+          $ exit
+          $ docker compose restart grafana
+        ```
+        * Attempt2:
+          ```
+          docker compose down
+          docker volume rm grafana-tutorial-environment_app_data
+          docker compose up
+          ```
+        * Attempt3:
+          ```
+          docker run -d \
+            --name grafana-test \
+            -p 3000:3000 \
+            -e "GF_SECURITY_ADMIN_PASSWORD=admin" \
+            grafana/grafana:10.4.0
+          ```
+        * Solution: `brew services stop grafana`
+          * Reason: 🧠I had got grafana as services ALSO running🧠
+          
 
-## Login
-
-To log in browse to [localhost:3000](http://localhost:3000).
-
-NOTE:
-To facilitate the demo, **login has been disabled**, and anonymous access is granted admin privileges. For security reasons, we advise keeping login enabled in your Grafana instance.
-
-If you want to follow the tutorial with login enabled, you can comment the following lines of the [docker-compose file](docker-compose.yml)
-
-
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin 
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_BASIC_ENABLED=false
-
-
-Once login is enabled, the default username and password is `admin:admin`
-
-## Running
-
-To start the sample application and the supporting services:
-
-```
-docker-compose up -d
-```
+### disable login
+* comment lines | [docker-compose.yml](docker-compose.yml)
