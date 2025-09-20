@@ -43,6 +43,16 @@ services:
       - "GF_DEFAULT_APP_MODE=development"
       - "GF_LOG_LEVEL=debug"
       - "GF_ALERTING_NOTIFICATION_SKIP_TLS_VERIFY=true"
+      - "GF_ALERTING_NOTIFICATION_TIMEOUT=30s"
+      - "GF_UNIFIED_ALERTING_DISABLED_LABELS=false"
+      - "GF_ALERTING_EXECUTE_ALERTS=true"
+      - "GF_UNIFIED_ALERTING_EXECUTE_ALERTS=true"
+      - "GF_ALERTING_SKIP_TLS_VERIFY=true"
+      - "GF_SECURITY_ALLOW_EMBEDDING=true"
+      - "GF_SECURITY_COOKIE_SECURE=false"
+      - "PYTHONHTTPSVERIFY=0"
+      - "CURL_CA_BUNDLE="
+      - "REQUESTS_CA_BUNDLE="
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin # grants admin role to anonymous access
       - GF_AUTH_ANONYMOUS_ENABLED=true # removes login 1/2
       - GF_AUTH_BASIC_ENABLED=false # enable basic auth for API
@@ -54,6 +64,7 @@ services:
       # - "GF_SECURITY_ADMIN_PASSWORD=admin"
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      #- ./grafana.ini:/etc/grafana/grafana.ini
 
   app:
     build: ./app
