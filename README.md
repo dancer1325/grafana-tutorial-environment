@@ -46,8 +46,7 @@
             grafana/grafana:10.4.0
           ```
         * Solution: `brew services stop grafana`
-          * Reason: 🧠I had got grafana as services ALSO running🧠
-          
+          * Reason: 🧠I had got grafana as services ALSO running🧠 
 
 ### disable login
 * comment lines | [docker-compose.yml](docker-compose.yml)
