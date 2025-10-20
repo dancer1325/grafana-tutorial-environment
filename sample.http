@@ -10,3 +10,88 @@ GET {{GRAFANA_HOST}}/api/orgs/1/users
 ### GET dashboards
 GET {{GRAFANA_HOST}}/api/search
 
+### GET
+GET {{LOKI_HOST}}/loki/api/v1/labels
+
+### GET
+GET {{LOKI_HOST}}/loki/api/v1/label/job/values
+
+### POST error log to Loki (CORREGIDO)
+POST {{LOKI_HOST}}/loki/api/v1/push
+Content-Type: application/json
+
+{
+  "streams": [
+    {
+      "stream": {
+        "job": "app",
+        "level": "error",
+        "service": "backend"
+      },
+      "values": [
+        ["1729371209000000000", "Database connection failed"]
+      ]
+    }
+  ]
+}
+
+### POST múltiples logs (CORREGIDO)
+POST {{LOKI_HOST}}/loki/api/v1/push
+Content-Type: application/json
+
+{
+  "streams": [
+    {
+      "stream": {
+        "job": "webserver",
+        "level": "info"
+      },
+      "values": [
+        ["1729371209000000000", "User login successful"],
+        ["1729371210000000000", "Processing request /api/users"],
+        ["1729371211000000000", "Response sent with status 200"]
+      ]
+    }
+  ]
+}
+
+
+### POST error log to Loki (TIMESTAMP ACTUAL)
+POST {{LOKI_HOST}}/loki/api/v1/push
+Content-Type: application/json
+
+{
+  "streams": [
+    {
+      "stream": {
+        "job": "app",
+        "level": "error",
+        "service": "backend"
+      },
+      "values": [
+        ["1760649587", "Database connection failed"]
+      ]
+    }
+  ]
+}
+
+### POST múltiples logs (TIMESTAMPS ACTUALES)
+POST {{LOKI_HOST}}/loki/api/v1/push
+Content-Type: application/json
+
+{
+  "streams": [
+    {
+      "stream": {
+        "job": "webserver",
+        "level": "info"
+      },
+      "values": [
+        ["1728671728000000000", "User login successful"],
+        ["1728671729000000000", "Processing request /api/users"],
+        ["1728671730000000000", "Response sent with status 200"]
+      ]
+    }
+  ]
+}
+

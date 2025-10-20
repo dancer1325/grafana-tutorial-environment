@@ -76,7 +76,10 @@ services:
       - grafana
 
   db:
-    image: grafana/tns-db:latest
+    # 1. AMD64
+    #image: grafana/tns-db:latest
+    # 2. ARM64
+    image: grafana/tns-db:gtm-hackathon-4
     ports:
       - 8082:80
     networks:

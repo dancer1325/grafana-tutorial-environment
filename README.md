@@ -47,6 +47,9 @@
           ```
         * Solution: `brew services stop grafana`
           * Reason: 🧠I had got grafana as services ALSO running🧠 
+  * Connections > Data sources > Add new data source
+    * Prometheus > Double click > Prometheus server URL = http://prometheus:9090
+    * Loki > Double click > URL = http://loki:3100
 
 ### disable login
 * comment lines | [docker-compose.yml](docker-compose.yml)
